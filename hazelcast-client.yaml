@@ -1,0 +1,12 @@
+hazelcast-client:
+  cluster-name: seatunnel
+  properties:
+    hazelcast.logging.type: log4j2
+  connection-strategy:
+    connection-retry:
+      cluster-connect-timeout-millis: 3000
+  network:
+    cluster-members:
+      - seatunnel-master-0.seatunnel-master.seatunnel.svc.cluster.local:5801
+      - seatunnel-worker-0.seatunnel-worker.seatunnel.svc.cluster.local:5802
+      - seatunnel-worker-1.seatunnel-worker.seatunnel.svc.cluster.local:5802

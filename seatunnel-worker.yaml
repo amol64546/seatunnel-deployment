@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: seatunnel-worker
+  namespace: seatunnel-cluster
+spec:
+  selector:
+    app: seatunnel-worker
+  ports:
+    - name: internal-communication
+      port: 5802
+      targetPort: 5802
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: seatunnel-worker
+  namespace: seatunnel-cluster
+  annotations:
+    configmap.reloader.stakater.com/reload: "hazelcast-worker,hazelcast-client,seatunnelmap"
+spec:
+  serviceName: "seatunnel-worker"
+  replicas: 2
+  selector:
+    matchLabels:
+      app: seatunnel-worker
+  template:
+    metadata:
+      labels:
+        app: seatunnel-worker
+    spec:
+      containers:
+        - name: seatunnel-worker
+          image: amol64546/seatunnel:2.3.9
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5802
+              name: hazelcast
+          command: ["/bin/sh","-c","/opt/seatunnel/bin/seatunnel-cluster.sh -r worker -DJvmOption=-Xms2G -Xmx4G"]
+          resources:
+            limits:
+              cpu: "2"
+              memory: 6G
+            requests:
+              cpu: "1"
+              memory: 2G
+          volumeMounts:
+            - mountPath: "/opt/seatunnel/config/hazelcast-worker.yaml"
+              name: hazelcast-worker
+              subPath: hazelcast-worker.yaml
+            - mountPath: "/opt/seatunnel/config/hazelcast-client.yaml"
+              name: hazelcast-client
+              subPath: hazelcast-client.yaml
+            - mountPath: "/opt/seatunnel/config/seatunnel.yaml"
+              name: seatunnelmap
+              subPath: seatunnel.yaml
+      volumes:
+        - name: hazelcast-worker
+          configMap:
+            name: hazelcast-worker
+        - name: hazelcast-client
+          configMap:
+            name: hazelcast-client
+        - name: seatunnelmap
+          configMap:
+            name: seatunnelmap

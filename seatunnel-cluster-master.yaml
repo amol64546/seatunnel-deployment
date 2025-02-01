@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: seatunnel-master
+  namespace: seatunnel-cluster
 spec:
   type: NodePort
   selector:
@@ -20,6 +21,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: seatunnel-master
+  namespace: seatunnel-cluster
   annotations:
     configmap.reloader.stakater.com/reload: "hazelcast-master,hazelcast-client,seatunnelmap"
 spec:
@@ -47,43 +49,39 @@ spec:
             - -c
             - >
               /opt/seatunnel/bin/seatunnel-cluster.sh -r master
-              # -Xms1G -Xmx2G
-              # for above Java 8
-              --add-modules java.se
-              --add-exports java.base/jdk.internal.ref=ALL-UNNAMED
-              --add-opens java.base/java.lang=ALL-UNNAMED
-              --add-opens java.base/sun.nio.ch=ALL-UNNAMED
-              --add-opens java.management/sun.management=ALL-UNNAMED
-              --add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED
+          # env:
+          #   - name: JvmOption
+          #     value: "-Xms1G -Xmx2G"
+          # resources:
+          #   limits:
+          #     cpu: "2"
+          #     memory: 4G
+          #   requests:
+          #     cpu: "1"
+          #     memory: 2G
           resources:
             limits:
-              cpu: "0.5"
-              memory: "512Mi"
+              cpu: "0.5"       
+              memory: "512Mi"  
             requests:
-              cpu: "0.5"
-              memory: "512Mi"
+              cpu: "0.25"       
+              memory: "256Mi"
           volumeMounts:
-            - mountPath: "/opt/seatunnel/config/hazelcast-master.yaml"
-              name: hazelcast-master
+            - name: seatunnel-config
+              mountPath: "/opt/seatunnel/config/hazelcast-master.yaml"
               subPath: hazelcast-master.yaml
-            - mountPath: "/opt/seatunnel/config/hazelcast-client.yaml"
-              name: hazelcast-client
+            - name: seatunnel-config
+              mountPath: "/opt/seatunnel/config/hazelcast-client.yaml"
               subPath: hazelcast-client.yaml
-            - mountPath: "/opt/seatunnel/config/seatunnel.yaml"
-              name: seatunnelmap
+            - name: seatunnel-config
+              mountPath: "/opt/seatunnel/config/seatunnel.yaml"
               subPath: seatunnel.yaml
             - name: seatunnel-pvc
               mountPath: /mnt/seatunnel
       volumes:
-        - name: hazelcast-master
+        - name: seatunnel-config
           configMap:
-            name: hazelcast-master
-        - name: hazelcast-client
-          configMap:
-            name: hazelcast-client
-        - name: seatunnelmap
-          configMap:
-            name: seatunnelmap
+            name: seatunnel-config
         - name: seatunnel-pvc
           persistentVolumeClaim:
             claimName: seatunnel-pvc

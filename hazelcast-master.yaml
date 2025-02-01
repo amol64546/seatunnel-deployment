@@ -1,12 +1,11 @@
 hazelcast:
   cluster-name: seatunnel
-  # Consistency and Partition Tolerance
-  # cp-subsystem:
-  #   enabled: true
-  #   cp-member-count: 3
-  #   group-size: 3
-  #   session-time-to-live-seconds: 300
-  #   persistence-enabled: true
+  cp-subsystem:
+    enabled: true
+    cp-member-count: 3
+    group-size: 3
+    session-time-to-live-seconds: 300
+    persistence-enabled: true
   network:
     rest-api:
       enabled: true

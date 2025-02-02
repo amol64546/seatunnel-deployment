@@ -6,13 +6,13 @@ seatunnel:
     queue-type: blockingqueue
     print-execution-info-interval: 60
     print-job-metrics-info-interval: 60
-    coordinator-service:
-      core-thread-num: 30
-      max-thread-num: 1000
+    # coordinator-service:
+    #   core-thread-num: 30
+    #   max-thread-num: 1000
     slot-service:
       dynamic-slot: false
-      slot-num: 20
-    job-sche  dule-strategy: WAIT
+      slot-num: 100
+    job-schedule-strategy: WAIT
     checkpoint:
       interval: 10000
       timeout: 60000

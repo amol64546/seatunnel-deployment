@@ -21,7 +21,7 @@ metadata:
     configmap.reloader.stakater.com/reload: "seatunnel-config"
 spec:
   serviceName: "seatunnel-worker"
-  replicas: 1
+  # replicas: 1
   selector:
     matchLabels:
       app: seatunnel-worker
@@ -42,16 +42,16 @@ spec:
             - -c
             - >
               /opt/seatunnel/bin/seatunnel-cluster.sh -r worker
-          # env:
-          #   - name: JvmOption
-          #     value: "-Xms1G -Xmx2G"
+          env:
+            - name: JvmOption
+              value: "-Xms1G -Xmx2G"
           resources:
-            limits:
-              cpu: "1"
-              memory: 2G
             requests:
               cpu: "1"
               memory: 2G
+            limits:
+              cpu: "2"
+              memory: 4G
           volumeMounts:
             - name: seatunnel-config
               mountPath: "/opt/seatunnel/config/hazelcast-worker.yaml"
@@ -62,12 +62,12 @@ spec:
             - name: seatunnel-config
               mountPath: "/opt/seatunnel/config/seatunnel.yaml"
               subPath: seatunnel.yaml
-            - name: seatunnel-pvc
-              mountPath: /mnt/seatunnel
+            # - name: seatunnel-pvc
+            #   mountPath: /mnt/seatunnel
       volumes:
         - name: seatunnel-config
           configMap:
             name: seatunnel-config
-        - name: seatunnel-pvc
-          persistentVolumeClaim:
-            claimName: seatunnel-pvc
+        # - name: seatunnel-pvc
+        #   persistentVolumeClaim:
+        #     claimName: seatunnel-pvc

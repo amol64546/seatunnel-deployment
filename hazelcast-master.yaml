@@ -1,11 +1,10 @@
 hazelcast:
   cluster-name: seatunnel
-  cp-subsystem:
-    enabled: true
-    cp-member-count: 3
-    group-size: 3
-    session-time-to-live-seconds: 300
-    persistence-enabled: true
+  # cp-subsystem:
+  #   cp-member-count: 3
+  #   group-size: 3
+  #   session-time-to-live-seconds: 300
+  #   persistence-enabled: true
   network:
     rest-api:
       enabled: true
@@ -18,23 +17,23 @@ hazelcast:
       tcp-ip:
         enabled: true
         member-list:
-          - localhost:5801
-          - localhost:5802
+          - seatunnel-master-0.seatunnel-master.seatunnel-cluster.svc.cluster.local:5801
+          - seatunnel-worker-0.seatunnel-master.seatunnel-cluster.svc.cluster.local:5802
     port:
       auto-increment: false
       port: 5801
-    map:
-      engine*:
-        map-store:
-          enabled: true
-          initial-mode: EAGER
-          factory-class-name: org.apache.seatunnel.engine.server.persistence.FileMapStoreFactory
-          properties:
-            type: hdfs
-            namespace: /mnt/seatunnel/imap
-            clusterName: seatunnel
-            storage.type: hdfs
-            fs.defaultFS: file:///
+  map:
+    engine*:
+      map-store:
+        enabled: true
+        initial-mode: EAGER
+        factory-class-name: org.apache.seatunnel.engine.server.persistence.FileMapStoreFactory
+        properties:
+          type: hdfs
+          namespace: /mnt/seatunnel/imap
+          clusterName: seatunnel
+          storage.type: hdfs
+          fs.defaultFS: file:///
   properties:
     hazelcast.invocation.max.retry.count: 20
     hazelcast.tcp.join.port.try.count: 30

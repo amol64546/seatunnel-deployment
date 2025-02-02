@@ -1,4 +1,4 @@
-FROM openjdk:9
+FROM openjdk:8
 
 # Set environment variables
 ENV SEATUNNEL_HOME="/opt/seatunnel" \

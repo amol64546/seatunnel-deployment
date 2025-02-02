@@ -23,7 +23,7 @@ metadata:
   name: seatunnel-master
   namespace: seatunnel-cluster
   annotations:
-    configmap.reloader.stakater.com/reload: "hazelcast-master,hazelcast-client,seatunnelmap"
+    configmap.reloader.stakater.com/reload: "seatunnel-config"
 spec:
   serviceName: "seatunnel-master"
   replicas: 1
@@ -52,20 +52,13 @@ spec:
           # env:
           #   - name: JvmOption
           #     value: "-Xms1G -Xmx2G"
-          # resources:
-          #   limits:
-          #     cpu: "2"
-          #     memory: 4G
-          #   requests:
-          #     cpu: "1"
-          #     memory: 2G
           resources:
             limits:
-              cpu: "0.5"       
-              memory: "512Mi"  
+              cpu: "1"
+              memory: 2G
             requests:
-              cpu: "0.25"       
-              memory: "256Mi"
+              cpu: "1"
+              memory: 2G
           volumeMounts:
             - name: seatunnel-config
               mountPath: "/opt/seatunnel/config/hazelcast-master.yaml"

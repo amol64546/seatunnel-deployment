@@ -26,7 +26,7 @@ seatunnel:
           fs.defaultFS: file:///
     telemetry:
       metric:
-        enabled: false
+        enabled: true
       log:
         scheduled-deletion-enable: true
     http:

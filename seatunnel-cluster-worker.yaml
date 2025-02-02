@@ -38,13 +38,9 @@ spec:
             - containerPort: 5802
               name: hazelcast
           command:
-            - /bin/sh
-            - -c
-            - >
-              /opt/seatunnel/bin/seatunnel-cluster.sh -r worker
-          env:
-            - name: JvmOption
-              value: "-Xms1G -Xmx2G"
+            - "/bin/sh"
+            - "-c"
+            - "/opt/seatunnel/bin/seatunnel-cluster.sh -r worker -DJvmOption=-Xms1G -Xmx2G"
           resources:
             requests:
               cpu: "1"

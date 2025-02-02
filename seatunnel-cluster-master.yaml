@@ -45,13 +45,9 @@ spec:
             - containerPort: 8080
               name: ui
           command:
-            - /bin/sh
-            - -c
-            - >
-              /opt/seatunnel/bin/seatunnel-cluster.sh -r master
-          env:
-            - name: JvmOption
-              value: "-Xms1G -Xmx2G"
+            - "/bin/sh"
+            - "-c"
+            - "/opt/seatunnel/bin/seatunnel-cluster.sh -r master -DJvmOption=-Xms1G -Xmx2G"
           resources:
             requests:
               cpu: "1"

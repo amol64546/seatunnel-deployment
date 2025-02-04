@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: seatunnel-master
   namespace: seatunnel-cluster
+  labels:
+    app: seatunnel-master
 spec:
   type: NodePort
   selector:
@@ -26,7 +28,7 @@ metadata:
     configmap.reloader.stakater.com/reload: "seatunnel-config"
 spec:
   serviceName: "seatunnel-master"
-  # replicas: 1
+  replicas: 1
   selector:
     matchLabels:
       app: seatunnel-master

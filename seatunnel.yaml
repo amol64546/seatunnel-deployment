@@ -11,11 +11,11 @@ seatunnel:
     #   max-thread-num: 1000
     slot-service:
       dynamic-slot: false
-      slot-num: 100
+      slot-num: 20
     job-schedule-strategy: WAIT
     checkpoint:
-      interval: 10000
-      timeout: 60000
+      interval: 30000
+      timeout: 300000
       storage:
         type: hdfs
         max-retained: 3

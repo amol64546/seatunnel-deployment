@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: seatunnel-worker
   namespace: seatunnel-cluster
+  labels:
+    app: seatunnel-worker
 spec:
   selector:
     app: seatunnel-worker
@@ -21,7 +23,6 @@ metadata:
     configmap.reloader.stakater.com/reload: "seatunnel-config"
 spec:
   serviceName: "seatunnel-worker"
-  # replicas: 1
   selector:
     matchLabels:
       app: seatunnel-worker

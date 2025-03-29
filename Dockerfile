@@ -4,12 +4,6 @@ FROM openjdk:11
 ENV SEATUNNEL_HOME="/opt/seatunnel" \
     SEATUNNEL_VERSION="2.3.9"
 
-# ENV TZ=Asia/Kolkata
-#
-# # Install tzdata and configure time zone
-# RUN apt-get update && apt-get install -y tzdata && \
-#     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
 # Download and extract SeaTunnel
 RUN wget "https://archive.apache.org/dist/seatunnel/${SEATUNNEL_VERSION}/apache-seatunnel-${SEATUNNEL_VERSION}-bin.tar.gz" \
     && tar -xzvf "apache-seatunnel-${SEATUNNEL_VERSION}-bin.tar.gz" \

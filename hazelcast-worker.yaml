@@ -5,9 +5,8 @@ hazelcast:
       tcp-ip:
         enabled: true
         member-list:
-          - seatunnel-master-0.seatunnel-master.seatunnel-cluster.svc.cluster.local:5801
-          - seatunnel-worker-0.seatunnel-worker.seatunnel-cluster.svc.cluster.local:5802
-          # - seatunnel-worker-1.seatunnel-worker.seatunnel-cluster.svc.cluster.local:5802
+          - seatunnel-master-0.seatunnel-master.seatunnel.svc.cluster.local:5801
+          - seatunnel-worker-0.seatunnel-worker.seatunnel.svc.cluster.local:5802
     port:
       auto-increment: false
       port: 5802

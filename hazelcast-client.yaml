@@ -8,3 +8,4 @@ hazelcast-client:
   network:
     cluster-members:
       - seatunnel-master-0.seatunnel-master.seatunnel.svc.cluster.local:5801
+      - seatunnel-worker-0.seatunnel-worker.seatunnel.svc.cluster.local:5802

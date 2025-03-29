@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: seatunnel-worker
-  namespace: seatunnel-cluster
+  namespace: seatunnel
   labels:
     app: seatunnel-worker
 spec:
@@ -18,7 +18,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: seatunnel-worker
-  namespace: seatunnel-cluster
+  namespace: seatunnel
   annotations:
     configmap.reloader.stakater.com/reload: "seatunnel-config"
 spec:
@@ -59,12 +59,7 @@ spec:
             - name: seatunnel-config
               mountPath: "/opt/seatunnel/config/seatunnel.yaml"
               subPath: seatunnel.yaml
-            # - name: seatunnel-pvc
-            #   mountPath: /mnt/seatunnel
       volumes:
         - name: seatunnel-config
           configMap:
             name: seatunnel-config
-        # - name: seatunnel-pvc
-        #   persistentVolumeClaim:
-        #     claimName: seatunnel-pvc

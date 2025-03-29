@@ -41,7 +41,7 @@ spec:
           command:
             - "/bin/sh"
             - "-c"
-            - "/opt/seatunnel/bin/seatunnel-cluster.sh -r worker -DJvmOption=-Xms2G -Xmx4G"
+            - "/opt/seatunnel/bin/seatunnel-cluster.sh -r worker -DJvmOption=-Xms2G -Xmx2G"
           resources:
             requests:
               cpu: "2"

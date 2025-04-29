@@ -48,14 +48,14 @@ spec:
           command:
             - "/bin/sh"
             - "-c"
-            - "/opt/seatunnel/bin/seatunnel-cluster.sh -r master -DJvmOption=-Xms2G -Xmx2G"
+            - "/opt/seatunnel/bin/seatunnel-cluster.sh -r master -DJvmOption=-Xms1G -Xmx1G"
           resources:
             requests:
-              cpu: "2"
-              memory: 4G
+              cpu: "1"-Xms1G -Xmx1G
+              memory: 1G
             limits:
-              cpu: "4"
-              memory: 6G
+              cpu: "1"
+              memory: 1G
           volumeMounts:
             - name: seatunnel-config
               mountPath: "/opt/seatunnel/config/hazelcast-master.yaml"

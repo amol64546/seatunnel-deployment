@@ -51,7 +51,7 @@ spec:
             - "/opt/seatunnel/bin/seatunnel-cluster.sh -r master -DJvmOption=-Xms1G -Xmx1G"
           resources:
             requests:
-              cpu: "1"-Xms1G -Xmx1G
+              cpu: "1"
               memory: 1G
             limits:
               cpu: "1"

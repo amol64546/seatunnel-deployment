@@ -10,6 +10,26 @@ RUN wget "https://archive.apache.org/dist/seatunnel/${SEATUNNEL_VERSION}/apache-
     && mv "apache-seatunnel-${SEATUNNEL_VERSION}" "$SEATUNNEL_HOME" \
     && rm "apache-seatunnel-${SEATUNNEL_VERSION}-bin.tar.gz"
 
+# Modify config/plugin_config to include all required connectors
+RUN echo "--connectors-v2--\n \
+    connector-cassandra\n \
+    connector-cdc-mysql\n \
+    connector-cdc-mongodb\n \
+    connector-cdc-postgres\n \
+    connector-cdc-oracle\n \
+    connector-cdc-tidb\n \
+    connector-clickhouse\n \
+    connector-elasticsearch\n \
+    connector-file-ftp\n \
+    connector-file-local\n \
+    connector-hudi\n \
+    connector-influxdb\n \
+    connector-jdbc\n \
+    connector-kafka\n \
+    connector-mongodb\n \
+    connector-neo4j\n \
+    connector-redis" > "$SEATUNNEL_HOME/config/plugin_config"
+    
 # Install plugins
 WORKDIR "$SEATUNNEL_HOME"
 RUN sh bin/install-plugin.sh "$SEATUNNEL_VERSION"

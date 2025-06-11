@@ -52,15 +52,18 @@ spec:
               memory: 1G
           volumeMounts:
             - name: seatunnel-config
-              mountPath: "/opt/seatunnel/config/hazelcast-worker.yaml"
-              subPath: hazelcast-worker.yaml
-            - name: seatunnel-config
-              mountPath: "/opt/seatunnel/config/hazelcast-client.yaml"
-              subPath: hazelcast-client.yaml
-            - name: seatunnel-config
-              mountPath: "/opt/seatunnel/config/seatunnel.yaml"
-              subPath: seatunnel.yaml
+              mountPath: "/opt/seatunnel/config
+            - name: seatunnel-worker-pvc
+              mountPath: /mnt/seatunnel
+            - name: seatunnel-worker-pvc
+              mountPath: /opt/seatunnel/connectors
+            - name: seatunnel-worker-pvc
+              mountPath: /opt/seatunnel/lib
       volumes:
         - name: seatunnel-config
           configMap:
             name: seatunnel-config
+        - name: seatunnel-worker-pvc
+          persistentVolumeClaim:
+            claimName: seatunnel-worker-pvc
+ 

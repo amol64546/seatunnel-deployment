@@ -59,14 +59,16 @@ spec:
           volumeMounts:
             - name: seatunnel-config
               mountPath: /opt/seatunnel/config
-            - name: seatunnel-pvc
+            - name: seatunnel-master-pvc
               mountPath: /mnt/seatunnel
-            - name: seatunnel-pvc
+            - name: seatunnel-master-pvc
               mountPath: /opt/seatunnel/connectors
+            - name: seatunnel-master-pvc
+              mountPath: /opt/seatunnel/lib
       volumes:
         - name: seatunnel-config
           configMap:
             name: seatunnel-config
-        - name: seatunnel-pvc
+        - name: seatunnel-master-pvc
           persistentVolumeClaim:
-            claimName: seatunnel-pvc
+            claimName: seatunnel-master-pvc

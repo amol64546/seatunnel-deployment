@@ -1,0 +1,14 @@
+FROM openjdk:11
+
+# Set environment variables
+ENV SEATUNNEL_HOME="/opt/seatunnel" \
+    SEATUNNEL_VERSION="2.3.9"
+
+# Download and extract SeaTunnel
+RUN wget "https://archive.apache.org/dist/seatunnel/${SEATUNNEL_VERSION}/apache-seatunnel-${SEATUNNEL_VERSION}-bin.tar.gz" \
+    && tar -xzvf "apache-seatunnel-${SEATUNNEL_VERSION}-bin.tar.gz" \
+    && mv "apache-seatunnel-${SEATUNNEL_VERSION}" "$SEATUNNEL_HOME" \
+    && rm "apache-seatunnel-${SEATUNNEL_VERSION}-bin.tar.gz"
+
+# Set the working directory
+WORKDIR "$SEATUNNEL_HOME"

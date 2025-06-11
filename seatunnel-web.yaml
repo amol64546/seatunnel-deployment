@@ -51,15 +51,15 @@ spec:
               memory: "1Gi"
               cpu: "1"
           volumeMounts:
-            - name: config-volume
-              mountPath: /app/conf
-            - name: seatunnel-pvc
-              mountPath: /opt/seatunnel/libs
+            - name: seatunnel-web-config
+              mountPath: /opt/seatunnel-web/conf
+            - name: seatunnel-web-pvc
+              mountPath: /opt/seatunnel-web/libs
       volumes:
-        - name: config-volume
+        - name: seatunnel-web-config
           configMap:
             name: seatunnel-web-config
-        - name: seatunnel-pvc
+        - name: seatunnel-web-pvc
           persistentVolumeClaim:
-            claimName: seatunnel-pvc
+            claimName: seatunnel-web-pvc
 

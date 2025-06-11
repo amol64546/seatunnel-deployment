@@ -1,5 +1,9 @@
 seatunnel:
   engine:
+    event-report-http:
+        url: "http://bob-service.dev-mobius.svc.cluster.local:8080/v1.0/pipeline/etl/set-status"
+        headers:
+          Content-Type: application/json
     classloader-cache-mode: true
     history-job-expire-minutes: 1440
     backup-count: 1

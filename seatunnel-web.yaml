@@ -1,21 +1,10 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: seatunnel-web-service
-spec:
-  selector:
-    app: seatunnel-web
-  ports:
-    - name: seatunnel-web
-      port: 8801
-      targetPort: 8801
-      nodePort: 30008
-  type: NodePort
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: seatunnel-web
+  namespace: seatunnel-web
+  annotations:
+    configmap.reloader.stakater.com/reload: "seatunnel-web-config"
   labels:
     app: seatunnel-web
 spec:
@@ -52,9 +41,9 @@ spec:
               cpu: "1"
           volumeMounts:
             - name: seatunnel-web-config
-              mountPath: /opt/seatunnel-web/conf
+              mountPath: /app/conf
             - name: seatunnel-web-pvc
-              mountPath: /opt/seatunnel-web/libs
+              mountPath: /app/libs
       volumes:
         - name: seatunnel-web-config
           configMap:
@@ -62,15 +51,3 @@ spec:
         - name: seatunnel-web-pvc
           persistentVolumeClaim:
             claimName: seatunnel-web-pvc
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: seatunnel-web-pvc
-  namespace: seatunnel
-spec:
-  accessModes:
-   - ReadWriteMany
-  resources:
-    requests:
-      storage: "5Gi"

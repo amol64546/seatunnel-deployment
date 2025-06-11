@@ -8,9 +8,9 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://basic-tidb.tidb-cluster.svc.cluster.local:4000/seatunnel?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://mysql.seatunnel-web.svc.cluster.local:3306/seatunnel?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&allowPublicKeyRetrieval=true
     username: root
-    password: GaianMobius
+    password: mysql
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher

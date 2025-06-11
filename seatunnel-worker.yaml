@@ -1,24 +1,10 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: seatunnel-worker
-  namespace: seatunnel
-  labels:
-    app: seatunnel-worker
-spec:
-  selector:
-    app: seatunnel-worker
-  ports:
-    - name: internal-communication
-      port: 5802
-      targetPort: 5802
-  clusterIP: None
----
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: seatunnel-worker
   namespace: seatunnel
+  labels:
+    app: seatunnel-worker
   annotations:
     configmap.reloader.stakater.com/reload: "seatunnel-config"
 spec:
@@ -42,7 +28,8 @@ spec:
           command:
             - "/bin/sh"
             - "-c"
-            - "/opt/seatunnel/bin/seatunnel-cluster.sh -r worker -DJvmOption=-Xms1G -Xmx1G"
+            - "/opt/seatunnel/bin/seatunnel-cluster.sh -r worker -DJvmOption=-Xms1G -Xmx1G &&
+              tail -f /dev/null"
           resources:
             requests:
               cpu: "1"
@@ -66,16 +53,3 @@ spec:
         - name: seatunnel-worker-pvc
           persistentVolumeClaim:
             claimName: seatunnel-worker-pvc
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: seatunnel-worker-pvc
-  namespace: seatunnel
-spec:
-  accessModes:
-   - ReadWriteMany
-  resources:
-    requests:
-      storage: "5Gi"
-

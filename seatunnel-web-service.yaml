@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: seatunnel-web
+  namespace: seatunnel-web
+  labels:
+    app: seatunnel-web
+spec:
+  selector:
+    app: seatunnel-web
+  ports:
+    - name: seatunnel-web
+      port: 8801
+      targetPort: 8801
+      nodePort: 30009
+  type: NodePort

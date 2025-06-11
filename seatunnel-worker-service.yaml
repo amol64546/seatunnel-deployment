@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: seatunnel-worker
+  namespace: seatunnel
+  labels:
+    app: seatunnel-worker
+spec:
+  selector:
+    app: seatunnel-worker
+  ports:
+    - name: internal-communication
+      port: 5802
+      targetPort: 5802
+  clusterIP: None

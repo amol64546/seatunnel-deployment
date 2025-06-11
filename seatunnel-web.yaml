@@ -62,4 +62,15 @@ spec:
         - name: seatunnel-web-pvc
           persistentVolumeClaim:
             claimName: seatunnel-web-pvc
-
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: seatunnel-web-pvc
+  namespace: seatunnel
+spec:
+  accessModes:
+   - ReadWriteMany
+  resources:
+    requests:
+      storage: "5Gi"

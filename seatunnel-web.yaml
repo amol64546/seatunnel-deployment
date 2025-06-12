@@ -26,7 +26,7 @@ spec:
               name: web-ui
           env:
             - name: SEATUNNEL_HOME
-              value: /app
+              value: /opt/seatunnel-web
           command: ["sh", "-c"]
           args:
             - >
@@ -41,9 +41,9 @@ spec:
               cpu: "1"
           volumeMounts:
             - name: seatunnel-web-config
-              mountPath: /app/conf
+              mountPath: /opt/seatunnel-web/conf
             - name: seatunnel-web-pvc
-              mountPath: /app/libs
+              mountPath: /opt/seatunnel-web/libs
       volumes:
         - name: seatunnel-web-config
           configMap:

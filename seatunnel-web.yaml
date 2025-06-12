@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: seatunnel-web
-          image: amol64546/seatunnel-web:1.0.0
+          image: amol64546/seatunnel-web:1.0.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8801
@@ -30,8 +30,7 @@ spec:
           command: ["sh", "-c"]
           args:
             - >
-              sh bin/seatunnel-backend-daemon.sh start &&
-              tail -f /dev/null
+              sh bin/seatunnel-backend-daemon.sh start
           resources:
             requests:
               memory: "1Gi"

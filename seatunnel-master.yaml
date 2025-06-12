@@ -30,8 +30,7 @@ spec:
           command:
             - "/bin/sh"
             - "-c"
-            - "/opt/seatunnel/bin/seatunnel-cluster.sh -r master -DJvmOption=-Xms1G -Xmx1G &&
-              tail -f /dev/null"
+            - "/opt/seatunnel/bin/seatunnel-cluster.sh -r master -DJvmOption=-Xms1G -Xmx1G"
           resources:
             requests:
               cpu: "1"

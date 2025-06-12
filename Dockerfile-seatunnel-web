@@ -7,8 +7,8 @@ ENV SEATUNNEL_HOME="/opt/seatunnel-web" \
 # Download and extract SeaTunnel
 RUN wget "https://archive.apache.org/dist/seatunnel/seatunnel-web/${SEATUNNEL_WEB_VERSION}/apache-seatunnel-web-${SEATUNNEL_WEB_VERSION}-bin.tar.gz" \
     && tar -xzvf "apache-seatunnel-web-${SEATUNNEL_WEB_VERSION}-bin.tar.gz" \
-    && mv "apache-seatunnel-web-${SEATUNNEL_WEB_VERSION}" "$SEATUNNEL_HOME" \
-    && rm "apache-seatunnel-web-${SEATUNNEL_WEB_VERSION}-bin.tar.gz"
+    && mv "apache-seatunnel-web-${SEATUNNEL_WEB_VERSION}-bin" "$SEATUNNEL_HOME" \
+    && rm "apache-seatunnel-web-${SEATUNNEL_WEB_VERSION}-bin.tar.gz"    
 
 # Set the working directory
 WORKDIR "$SEATUNNEL_HOME"

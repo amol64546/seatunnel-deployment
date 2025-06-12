@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: seatunnel-web
-  namespace: seatunnel-web
+  namespace: seatunnel
   annotations:
     configmap.reloader.stakater.com/reload: "seatunnel-web-config"
   labels:
@@ -30,7 +30,8 @@ spec:
           command: ["sh", "-c"]
           args:
             - >
-              sh bin/seatunnel-backend-daemon.sh start
+              sh bin/seatunnel-backend-daemon.sh start &&
+              tail -f /dev/null
           resources:
             requests:
               memory: "1Gi"
@@ -40,7 +41,7 @@ spec:
               cpu: "1"
           volumeMounts:
             - name: seatunnel-web-config
-              mountPath: /opt/seatunnel-web/conf
+              mountPath: "/opt/seatunnel-web/conf"
             - name: seatunnel-web-pvc
               mountPath: /opt/seatunnel-web/libs
       volumes:

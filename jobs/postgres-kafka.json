@@ -1,0 +1,36 @@
+{
+    "env": {
+        "job.mode": "BATCH",
+        "parallelism": 4
+    },
+    "source": [
+        {
+            "plugin_name": "Jdbc",
+            "plugin_output": "postgres",
+            "url": "jdbc:postgresql://cnpg-cluster-rw.cnpg-database.svc.cluster.local:5432/seatunnel",
+            "connection_check_timeout_sec": 100,
+            "driver": "org.postgresql.Driver",
+            "user": "gaian",
+            "password": "GaianMobius",
+            "query": "select * from employees"
+        }
+    ],
+    "transform": [],
+    "sink": [
+        {
+            "plugin_name": "kafka",
+            "plugin_input": [
+                "postgres"
+            ],
+            "topic": "seatunnel",
+            "bootstrap.servers": "kafka-strimzi-kafka-plain-bootstrap.strimzi-kafka-operator.svc.cluster.local:9092",
+            "kafka.request.timeout.ms": 60000,
+            "semantics": "AT_LEAST_ONCE",
+            "kafka.config": {
+                "acks": "all",
+                "request.timeout.ms": 60000,
+                "buffer.memory": 8388608
+            }
+        }
+    ]
+}

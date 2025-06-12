@@ -1,0 +1,68 @@
+{
+    "env": {
+        "job.mode": "BATCH",
+        "parallelism": 1
+    },
+    "source": [
+        {
+            "plugin_name": "Jdbc",
+            "plugin_output": "postgres",
+            "url": "jdbc:postgresql://localhost:5432/seatunnel",
+            "driver": "org.postgresql.Driver",
+            "user": "postgres",
+            "password": "postgres",
+            "query": "select * from employees"
+        },
+        {
+            "plugin_name": "MongoDB",
+            "plugin_output": "mongo",
+            "uri": "mongodb://localhost:27017",
+            "database": "seatunnel",
+            "collection": "seatunnel",
+            "schema": {
+                "fields": {
+                      "_id": "string",
+                        "name": "string",
+                        "type": "string",
+                        "count": "int"
+                }
+            }
+        }
+    ],
+    "sink": [
+        {
+            "plugin_name": "kafka",
+             "bootstrap.servers": "localhost:9092",
+             "plugin_input": [
+                "mongo"
+            ],
+            "topic": "seatunnel",
+            "format": "json",
+            "kafka.request.timeout.ms": 60000,
+            "semantics": "AT_LEAST_ONCE",
+            "kafka.config": {
+                "acks": "all",
+                "request.timeout.ms": 60000,
+                "buffer.memory": 8388608
+            }
+        },
+        
+        {
+            "plugin_name": "kafka",
+            "plugin_input": [
+                "postgres"
+            ],
+            "topic": "seatunnel",
+            "bootstrap.servers": "localhost:9092",
+            "format": "json",
+            "kafka.request.timeout.ms": 60000,
+            "semantics": "AT_LEAST_ONCE",
+            "kafka.config": {
+                "acks": "all",
+                "request.timeout.ms": 60000,
+                "buffer.memory": 8388608
+            }
+        }
+        
+    ]
+}

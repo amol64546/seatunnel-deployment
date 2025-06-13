@@ -23,7 +23,7 @@ spec:
           image: busybox
           command: [ "sh", "-c", "mkdir -p /mnt/data/seatunnel /mnt/data/connectors /mnt/data/lib" ]
           volumeMounts:
-            - name: seatunnel-master-pvc
+            - name: seatunnel-pvc
               mountPath: /mnt/data
       containers:
         - name: seatunnel-master
@@ -59,19 +59,19 @@ spec:
               mountPath: "/opt/seatunnel/config/log4j2.properties"
               subPath: log4j2.properties
 
-            - name: seatunnel-master-pvc
+            - name: seatunnel-pvc
               mountPath: /mnt/seatunnel
               subPath: seatunnel
-            - name: seatunnel-master-pvc
+            - name: seatunnel-pvc
               mountPath: /opt/seatunnel/connectors
               subPath: connectors
-            - name: seatunnel-master-pvc
+            - name: seatunnel-pvc
               mountPath: /opt/seatunnel/lib
               subPath: lib
       volumes:
         - name: seatunnel-config
           configMap:
             name: seatunnel-config
-        - name: seatunnel-master-pvc
+        - name: seatunnel-pvc
           persistentVolumeClaim:
-            claimName: seatunnel-master-pvc
+            claimName: seatunnel-pvc

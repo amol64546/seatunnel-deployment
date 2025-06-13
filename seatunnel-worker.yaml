@@ -18,13 +18,6 @@ spec:
       labels:
         app: seatunnel-worker
     spec:
-      initContainers:
-        - name: init-volume
-          image: busybox
-          command: [ "sh", "-c", "mkdir -p /mnt/data/seatunnel /mnt/data/connectors /mnt/data/lib" ]
-          volumeMounts:
-            - name: seatunnel-worker-pvc
-              mountPath: /mnt/data
       containers:
         - name: seatunnel-worker
           image: amol64546/seatunnel:2.3.9
@@ -57,19 +50,16 @@ spec:
               mountPath: "/opt/seatunnel/config/log4j2.properties"
               subPath: log4j2.properties
 
-            - name: seatunnel-worker-pvc
-              mountPath: /mnt/seatunnel
-              subPath: seatunnel
-            - name: seatunnel-worker-pvc
+            - name: seatunnel-pvc
               mountPath: /opt/seatunnel/connectors
               subPath: connectors
-            - name: seatunnel-worker-pvc
+            - name: seatunnel-pvc
               mountPath: /opt/seatunnel/lib
               subPath: lib
       volumes:
         - name: seatunnel-config
           configMap:
             name: seatunnel-config
-        - name: seatunnel-worker-pvc
+        - name: seatunnel-pvc
           persistentVolumeClaim:
-            claimName: seatunnel-worker-pvc
+            claimName: seatunnel-pvc

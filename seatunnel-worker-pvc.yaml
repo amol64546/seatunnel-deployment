@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: seatunnel-lib-pvc
+  name: seatunnel-worker-pvc
   namespace: seatunnel
 spec:
   accessModes:
    - ReadWriteMany
   resources:
     requests:
-      storage: "1Gi"
+      storage: "5Gi"

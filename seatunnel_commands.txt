@@ -1,0 +1,70 @@
+
+kubectl create configmap seatunnel-config \
+  --from-file=hazelcast-master.yaml \
+  --from-file=hazelcast-worker.yaml \
+  --from-file=hazelcast-client.yaml \
+  --from-file=log4j2.properties \
+  --from-file-seatunnel.yaml \
+  --namespace=seatunnel
+
+
+kubectl create configmap seatunnel-web-config \
+  --from-file=application.yml \
+  --from-file=hazelcast-client.yaml \
+  --from-file=plugin-mapping.properties \
+  --from-file=connector-datasource-mapper.yaml \
+  --namespace=seatunnel
+  
+kubectl apply -f seatunnel-master.yaml
+kubectl apply -f seatunnel-worker.yaml
+
+
+kubectl delete -f seatunnel-master.yaml
+kubectl delete -f seatunnel-worker.yaml
+
+kubectl cp /home/gaian/Downloads/seatunnel/apache-seatunnel-2.3.9/connectors/. \
+  seatunnel-master-0:/opt/seatunnel/connectors -n seatunnel
+
+kubectl cp /home/gaian/Downloads/seatunnel/apache-seatunnel-2.3.9/lib/. \
+  seatunnel-master-0:/opt/seatunnel/lib -n seatunnel
+
+kubectl cp /home/gaian/Downloads/seatunnel/apache-seatunnel-web-1.0.2-bin/libs/. \
+  seatunnel-web-7b858d78bf-vtrcw:/opt/seatunnel-web/libs -n seatunnel
+
+seatunnel - master-worker
+
+./bin/seatunnel-cluster.sh -d -r master
+./bin/seatunnel-cluster.sh -d -r worker
+
+./bin/stop-seatunnel-cluster.sh -cn seatunnel
+./bin/stop-seatunnel-cluster.sh worker
+
+
+./bin/seatunnel.sh --config ./config/v2.streaming.conf.template -m local
+
+./bin/seatunnel-cluster.sh -d
+tail -200f logs/seatunnel-engine-server.log
+
+
+./bin/seatunnel-cluster.sh -d -r master -DJvmOption=-Xms2G -Xmx2G
+./bin/seatunnel-cluster.sh -d -r worker
+
+tail -200f logs/seatunnel-engine-master.log
+tail -200f logs/seatunnel-engine-worker.log
+
+./bin/stop-seatunnel-cluster.sh -cn seatunnel
+
+## running seatunnel web
+
+sh bin/seatunnel-backend-daemon.sh start
+
+sh bin/seatunnel-backend-daemon.sh stop
+
+
+http://127.0.0.1:8801/ui/ 
+
+username: admin, password: admin
+
+
+
+

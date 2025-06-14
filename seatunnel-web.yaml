@@ -30,7 +30,8 @@ spec:
           command: ["sh", "-c"]
           args:
             - >
-              sh bin/seatunnel-backend-daemon.sh start
+              sh bin/seatunnel-backend-daemon.sh start &&
+              tail -f /dev/null
           resources:
             requests:
               memory: "1Gi"

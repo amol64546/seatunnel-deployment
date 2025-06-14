@@ -1,8 +1,8 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: seatunnel-hpa-worker
-  namespace: seatunnel-cluster
+  name: seatunnel-worker-hpa
+  namespace: seatunnel
 spec:
   minReplicas: 1
   maxReplicas: 3

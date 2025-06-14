@@ -1,0 +1,18 @@
+
+kubectl create configmap seatunnel-web-config \
+  --from-file=application.yml \
+  --from-file=hazelcast-client.yaml \
+  --from-file=plugin-mapping.properties \
+  --from-file=connector-datasource-mapper.yaml \
+  --namespace=seatunnel
+  
+
+kubectl apply -f seatunnel-web-pvc.yaml
+kubectl apply -f seatunnel-web.yaml
+kubectl apply -f seatunnel-web-service.yaml
+kubectl apply -f seatunnel-worker-hpa.yaml
+
+
+
+# kubectl cp /home/gaian/Downloads/seatunnel/apache-seatunnel-web-1.0.2-bin/libs/. \
+#   seatunnel-web-7b858d78bf-vtrcw:/opt/seatunnel-web/libs -n seatunnel

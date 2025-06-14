@@ -1,4 +1,10 @@
-
+helm install mysql bitnami/mysql \
+  --set auth.rootPassword=mysql \
+  --set auth.username=mysql \
+  --set auth.password=mysql \
+  --set auth.database=seatunnel \
+  -n seatunnel
+  
 kubectl create configmap seatunnel-web-config \
   --from-file=application.yml \
   --from-file=hazelcast-client.yaml \

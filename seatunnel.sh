@@ -5,7 +5,7 @@ kubectl create configmap seatunnel-config \
   --from-file=hazelcast-worker.yaml \
   --from-file=hazelcast-client.yaml \
   --from-file=log4j2.properties \
-  --from-file-seatunnel.yaml \
+  --from-file=seatunnel.yaml \
   --namespace=seatunnel
 
 

@@ -16,7 +16,6 @@ kubectl create configmap seatunnel-web-config \
 kubectl apply -f seatunnel-web-pvc.yaml
 kubectl apply -f seatunnel-web.yaml
 kubectl apply -f seatunnel-web-service.yaml
-kubectl apply -f seatunnel-worker-hpa.yaml
 
 
 

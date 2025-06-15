@@ -13,4 +13,4 @@ RUN wget "https://archive.apache.org/dist/seatunnel/seatunnel-web/${SEATUNNEL_WE
 # Set the working directory
 WORKDIR "$SEATUNNEL_HOME"
 
-
+RUN bash bin/download_datasource.sh "$SEATUNNEL_WEB_VERSION"

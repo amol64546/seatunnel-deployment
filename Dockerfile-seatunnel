@@ -2,7 +2,7 @@ FROM openjdk:11
 
 # Set environment variables
 ENV SEATUNNEL_HOME="/opt/seatunnel" \
-    SEATUNNEL_VERSION="2.3.9"
+    SEATUNNEL_VERSION="2.3.11"
 
 # Download and extract SeaTunnel
 RUN wget "https://archive.apache.org/dist/seatunnel/${SEATUNNEL_VERSION}/apache-seatunnel-${SEATUNNEL_VERSION}-bin.tar.gz" \

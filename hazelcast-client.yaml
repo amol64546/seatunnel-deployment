@@ -1,5 +1,5 @@
 hazelcast-client:
-  cluster-name: seatunnel
+  cluster-name: seatunnel-2.3.9
   properties:
     hazelcast.logging.type: log4j2
   connection-strategy:

@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: seatunnel-worker
-  namespace: seatunnel
+  # namespace: seatunnel
   labels:
     app: seatunnel-worker
   annotations:
@@ -28,6 +28,22 @@ spec:
             - "/bin/sh"
             - "-c"
             - "/opt/seatunnel/bin/seatunnel-cluster.sh -r worker -DJvmOption=-Xms1G -Xmx1G"
+          # lifecycle:
+          #   postStart:
+          #     exec:
+          #       command: 
+          #         - "/bin/sh"
+          #         - "-c"
+          #         - |
+          #           echo "Waiting for master to be ready..."
+          #           for i in $(seq 1 30); do
+          #             if nc -z seatunnel-master-0.seatunnel.svc.cluster.local 5801; then
+          #               echo "Master is ready, proceeding with worker startup"
+          #               break
+          #             fi
+          #             echo "Master not ready, waiting... ($i/30)"
+          #             sleep 2
+          #           done
           resources:
             requests:
               cpu: "1"

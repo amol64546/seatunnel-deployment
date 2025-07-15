@@ -1,9 +1,9 @@
 seatunnel:
   engine:
-    event-report-http:
-        url: "http://bob-service.dev-mobius.svc.cluster.local:8080/v1.0/pipeline/etl/set-status"
-        headers:
-          Content-Type: application/json
+    # event-report-http:
+    #     url: "http://bob-service.dev-mobius.svc.cluster.local:8080/v1.0/pipeline/etl/set-status"
+    #     headers:
+    #       Content-Type: application/json
     classloader-cache-mode: true
     history-job-expire-minutes: 1440
     backup-count: 1
@@ -15,7 +15,7 @@ seatunnel:
       max-thread-num: 1000
     slot-service:
       dynamic-slot: false
-      slot-num: 20
+      slot-num: 50
     job-schedule-strategy: WAIT
     checkpoint:
       interval: 30000
@@ -36,3 +36,7 @@ seatunnel:
     http:
       enable-http: true
       port: 8080
+      # context-path: /seatunnel
+      # enable-basic-auth: true
+      # basic-auth-username: "admin"
+      # basic-auth-password: "admin"

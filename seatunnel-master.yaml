@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: seatunnel-master
-  namespace: seatunnel
+  # namespace: seatunnel
   labels:
     app: seatunnel-master
   annotations:
@@ -21,7 +21,7 @@ spec:
       initContainers:
         - name: init-volume
           image: busybox
-          command: [ "sh", "-c", "mkdir -p /mnt/data/seatunnel /mnt/data/connectors /mnt/data/lib" ]
+          command: [ "sh", "-c", "mkdir -p /mnt/data/connectors /mnt/data/lib" ]
           volumeMounts:
             - name: seatunnel-pvc
               mountPath: /mnt/data
@@ -38,6 +38,17 @@ spec:
             - "/bin/sh"
             - "-c"
             - "/opt/seatunnel/bin/seatunnel-cluster.sh -r master -DJvmOption=-Xms1G -Xmx1G"
+          # readinessProbe:
+          #   httpGet:
+          #     path: /hazelcast/health/ready
+          #     port: 5801
+          #   initialDelaySeconds: 10
+          #   periodSeconds: 5
+          # readinessProbe:
+          #   tcpSocket:
+          #     port: 5801
+          #   initialDelaySeconds: 10
+          #   periodSeconds: 5
           resources:
             requests:
               cpu: "1"
@@ -59,9 +70,8 @@ spec:
               mountPath: "/opt/seatunnel/config/log4j2.properties"
               subPath: log4j2.properties
 
-            - name: seatunnel-pvc
+            - name: seatunnel-master-pvc
               mountPath: /mnt/seatunnel
-              subPath: seatunnel
             - name: seatunnel-pvc
               mountPath: /opt/seatunnel/connectors
               subPath: connectors
@@ -75,3 +85,6 @@ spec:
         - name: seatunnel-pvc
           persistentVolumeClaim:
             claimName: seatunnel-pvc
+        - name: seatunnel-master-pvc
+          persistentVolumeClaim:
+            claimName: seatunnel-master-pvc

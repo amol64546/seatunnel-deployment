@@ -21,13 +21,13 @@ kubectl apply -f seatunnel-master-external-service.yaml -n seatunnel
 
 kubectl apply -f seatunnel-worker-hpa.yaml -n seatunnel
 
-bash bin/install-plugin.sh
+# bash bin/install-plugin.sh
 
-kubectl cp /home/gaian/Downloads/seatunnel/apache-seatunnel-2.3.11/connectors/plugin-mapping.properties \
-  seatunnel-master-0:/opt/seatunnel/connectors -n seatunnel
-
-# kubectl cp /home/gaian/Downloads/seatunnel/apache-seatunnel-2.3.11/connectors/. \
+# kubectl cp /home/gaian/Downloads/seatunnel/apache-seatunnel-2.3.11/connectors/plugin-mapping.properties \
 #   seatunnel-master-0:/opt/seatunnel/connectors -n seatunnel
+
+kubectl cp /home/gaian/Downloads/seatunnel/apache-seatunnel-2.3.11/connectors/. \
+  seatunnel-master-0:/opt/seatunnel/connectors -n seatunnel
 
 kubectl cp /home/gaian/Downloads/seatunnel/apache-seatunnel-2.3.11/lib/. \
   seatunnel-master-0:/opt/seatunnel/lib -n seatunnel
